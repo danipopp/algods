@@ -37,7 +37,7 @@ class RobinHoodHashMap:
             
             # Move index to next slot
             index = (index + 1) % self.capacity
-            probe_distance += 
+            probe_distance += 1
             
     def get(self, key):
         index = self._hash(key)
