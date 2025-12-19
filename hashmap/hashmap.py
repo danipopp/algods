@@ -37,4 +37,25 @@ class RobinHoodHashMap:
             
             # Move index to next slot
             index = (index + 1) % self.capacity
+            probe_distance += 
+            
+    def get(self, key):
+        index = self._hash(key)
+        probe_distance = 0
+
+        while True:
+            entry = self.table[index]
+
+            if entry is None:
+                return None
+            
+            k, value, distance = entry
+
+            if distance < probe_distance:
+                return None
+            
+            if key == k:
+                return value
+
+            index = (index + 1) % self.capacity
             probe_distance += 1
