@@ -47,6 +47,7 @@ def run_all_tests():
     test_put_and_get()
     test_update_existing_key()
     test_collision_handling()
+    test_remove()
 
 if __name__ == "__main__":
     run_all_tests()
