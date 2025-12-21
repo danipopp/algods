@@ -30,6 +30,19 @@ def test_collision_handling():
     for i, k in enumerate(keys):
         assert hm.get(k) == i
 
+def test_remove():
+    hm = RobinHoodHashMap()
+
+    hm.put("x", 100)
+    hm.put("y", 200)
+    hm.put("z", 300)
+
+    hm.remove("y")
+
+    assert hm.get("y") is None
+    assert hm.get("x") == 100
+    assert hm.get("z") == 300
+
 def run_all_tests():
     test_put_and_get()
     test_update_existing_key()

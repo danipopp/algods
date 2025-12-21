@@ -59,3 +59,40 @@ class RobinHoodHashMap:
 
             index = (index + 1) % self.capacity
             probe_distance += 1
+
+    def remove(self, key):
+        index = self._hash(key)
+        probe_distance = 0
+
+        while True:
+            entry = self.table[index]
+
+            if entry is None:
+                return
+            
+            k, v, distance = entry
+            
+            if distance < probe_distance:
+                return
+            
+            if k == key:
+                self.shift_delete(index)
+                return
+            
+            index = (index + 1) % self.capacity
+            probe_distance += 1
+
+    def shift_delete(self, start):
+        index = start
+        
+        while True:
+            next_index = (index + 1) % self.capacity
+            next_entry = self.table[next_index]
+
+            if next_entry is None or next_entry[2] == 0:
+                self.table[index] = None
+                return
+            
+            k, v, dist = next_entry
+            self.table[index] = (k, v, dist - 1)
+            index = next_index
