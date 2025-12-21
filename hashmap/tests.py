@@ -20,6 +20,16 @@ def test_update_existing_key():
 
     assert hm.get("key") == "value2"
 
+def test_collision_handling():
+    hm = RobinHoodHashMap(capacity=4)
+
+    keys = ["a", "b", "c", "d"]
+    for i, k in enumerate(keys):
+        hm.put(k, i)
+    
+    for i, k in enumerate(keys):
+        assert hm.get(k) == i
+
 def run_all_tests():
     test_put_and_get()
     test_update_existing_key()
