@@ -12,8 +12,17 @@ def test_put_and_get():
     assert hm.get("c") == 3
     assert hm.get("missing") is None
 
+def test_update_existing_key():
+    hm = RobinHoodHashMap()
+
+    hm.put("key","value1")
+    hm.put("key","value2")
+
+    assert hm.get("key") == "value2"
+
 def run_all_tests():
     test_put_and_get()
+    test_update_existing_key()
 
 if __name__ == "__main__":
     run_all_tests()
