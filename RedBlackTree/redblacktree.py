@@ -53,3 +53,64 @@ class RedBlackTree:
 
         y.right = x
         x.parent = y
+
+    # ---------------- INSERT ----------------
+    def insert(self, key):
+        node = Node(key)
+        node.left = self.NIL
+        node.right = self.NIL
+
+        parent = None
+        current = self.root
+
+        while current != self.NIL:
+            parent = current
+            if node.key < current.key:
+                current = current.left
+            else:
+                current = current.right
+
+        node.parent = parent
+
+        if parent is None:
+            self.root = node
+        elif node.key < parent.key:
+            parent.left = node
+        else:
+            parent.right = node
+
+        node.color = RED
+        self.insert_fixup(node)
+
+    def insert_fixup(self, z):
+        while z.parent and z.parent.color == RED:
+            if z.parent == z.parent.parent.left:
+                y = z.parent.parent.right
+                if y.color == RED:
+                    z.parent.color = BLACK
+                    y.color = BLACK
+                    z.parent.parent.color = RED
+                    z = z.parent.parent
+                else:
+                    if z == z.parent.right:
+                        z = z.parent
+                        self.left_rotate(z)
+                    z.parent.color = BLACK
+                    z.parent.parent.color = RED
+                    self.right_rotate(z.parent.parent)
+            else:
+                y = z.parent.parent.left
+                if y.color == RED:
+                    z.parent.color = BLACK
+                    y.color = BLACK
+                    z.parent.parent.color = RED
+                    z = z.parent.parent
+                else:
+                    if z == z.parent.left:
+                        z = z.parent
+                        self.right_rotate(z)
+                    z.parent.color = BLACK
+                    z.parent.parent.color = RED
+                    self.left_rotate(z.parent.parent)
+
+        self.root.color = BLACK
